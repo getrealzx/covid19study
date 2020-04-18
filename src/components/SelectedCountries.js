@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { deleteCountry } from "../actions/covidActions"
+import { deleteCountry } from "../actions/actions"
 
 //import {newActionCreatorFunction} from "someactioncreator"
 // import Chart from './Chart'
@@ -39,9 +39,10 @@ class SelectedCountries extends Component {
                                     return <tr key={region.Country}>
                                         <td>{region.Country}</td>
                                         <td><button 
-                                        onClick={() => {
-                                            this.props.deleteCountry(region)
-                                        }}>X</button></td>
+                                        onClick={({data = region}) => {
+                                            this.props.deleteCountry(data)}}
+                                        
+                                    >X</button></td>
                                     </tr>
 
                                 })
@@ -76,7 +77,7 @@ let mapStateToProps = (state) => {
 
 
     return {
-        selected: state.dataReducer.selected
+        selected: state.selected
     }
 }
 

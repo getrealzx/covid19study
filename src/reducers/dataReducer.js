@@ -1,4 +1,5 @@
-import { LOAD_DATA } from '../actions/types';
+import { LOAD_DATA, ADD_COUNTRY, DELETE_COUNTRY} from '../actions/types';
+
 
 let dataReducer = (state, action) => {
     //initialize state
@@ -52,29 +53,34 @@ let dataReducer = (state, action) => {
     switch (action.type) {
         case LOAD_DATA:
             console.log("reducer is called");
+            console.log(action.payload.allRegions.Countries[5].TotalConfirmed)
             return {
                 ...state,
                 allRegions: action.payload.allRegions
             }
 
 
-        // case "ADD":
-        //     return{
-        //         ...state,
-        //         selected: state.selected.conact(action.selected)
-        //     }
+        case ADD_COUNTRY:
+            
+            return{
+                ...state,
+                selected: state.selected.concat(action.payload)
+            }
 
 
-        // case "DELETE":
-        //     let updatedList = state.selected.filter(countryObj => {
-        //         return countryObj.Country !== action.selected.Country
+        case DELETE_COUNTRY:
 
-        //     })
+            let updatedList = state.selected.filter(countryObj => {
+                console.log(countryObj.Country, action.region.Country);
+                return countryObj.Country !== action.region.Country
 
-        //     return{
-        //         ...state,
-        //         selected: updatedList
-        //     }
+            })
+            console.log("updatedLIst", updatedList);
+
+            return{
+                ...state,
+                selected: updatedList
+            }
 
         default:
             return state;

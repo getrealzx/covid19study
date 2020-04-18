@@ -1,6 +1,6 @@
 // import {SELECT} from './types'
 
-import { LOAD_DATA } from "./types";
+import { LOAD_DATA , ADD_COUNTRY, DELETE_COUNTRY} from "./types";
 
 
 
@@ -39,6 +39,7 @@ export const loadData = (allState) => {
 
 console.log("++++++++++++actions+++++++++++++++");
 console.log(allState);
+console.log(allState.allRegions.Countries);
 console.log(allState.allRegions.Countries[142].TotalConfirmed);
 
 return {
@@ -46,3 +47,23 @@ return {
     payload: allState  //passed to reducer
 }
 };
+
+
+export const addCountry = (obj)=>{
+console.log("add Country",obj);
+    return{
+        type: ADD_COUNTRY,
+        payload:obj
+
+
+    }
+}
+
+
+export const deleteCountry = (region) => {
+    console.log("action delete: ", region);
+    return{
+        type: DELETE_COUNTRY,
+        region: region
+    }
+}
