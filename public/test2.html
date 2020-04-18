@@ -1,0 +1,11 @@
+<ul>
+    <li>Global Confrimed</li>
+    <li>{this.state.data.Global.TotalConfirmed}</li>
+    {/* <li>{this.state.data.Countries[1].Country}</li> */}
+
+    {this.state.data.Countries.map((region, index) => {
+      return <li key={region.Country}>{region.Country}:  || Total Cases: {region.TotalConfirmed} || Total Deaths: {region.TotalDeaths}  || Total Recovered: {region.TotalRecovered}</li>
+    })}
+  </ul>
+
+  import Table from 'react-bootstrap/Table'
