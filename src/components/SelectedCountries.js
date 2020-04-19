@@ -35,7 +35,7 @@ class SelectedCountries extends Component {
                         <tbody>
                             {
 
-                                this.props.selected.map((region, index) => {
+                                this.props.selected.map(region => {
 
                                     return <tr key={region.Country}>
                                         <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/shiny/32.png"}></img> {region.Country}</td>

@@ -32,18 +32,7 @@ let dataReducer = (state, action) => {
                 }
 
             ],
-            selected: [{
-                "Country": "Western Sahara",
-                "CountryCode": "EH",
-                "Slug": "western-sahara",
-                "NewConfirmed": 0,
-                "TotalConfirmed": 6,
-                "NewDeaths": 0,
-                "TotalDeaths": 0,
-                "NewRecovered": 0,
-                "TotalRecovered": 0,
-                "Date": "2020-04-16T14:09:46Z"
-            },
+            selected: [
             {
                 "Country": "Yemen",
                 "CountryCode": "YE",

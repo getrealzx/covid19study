@@ -82,10 +82,10 @@ class Landing extends Component {
 
             console.log("==============app props==============");
         //console.log(this.props.allRegions.Countries);
-        console.log("vero: testing data", this.props.allRegions.Countries);
+        // console.log("vero: testing data", this.props.allRegions.Countries);
         
         let gData= this.state.allRegions.Global;
-        console.log(gData.TotalConfirmed);
+        // console.log(gData.TotalConfirmed);
 
 
 
