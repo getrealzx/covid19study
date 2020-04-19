@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadData,addCountry } from '../actions/actions';
+import { loadData, addCountry } from '../actions/actions';
 import axios from "axios";
 import SelectedCountries from './SelectedCountries';
-import { createLogger } from 'redux-logger';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // import Table from 'react-bootstrap/Table';
 
@@ -12,7 +13,7 @@ import { createLogger } from 'redux-logger';
 
 class Landing extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -41,7 +42,7 @@ class Landing extends Component {
 
     //             }                   ,
     //                 () => {
-       
+
     //                     return this.props.loadData(this.state)
     //                 }
 
@@ -54,7 +55,7 @@ class Landing extends Component {
     async componentWillMount() {
 
 
-    ///https://api.covid19api.com/summary
+        ///https://api.covid19api.com/summary
 
         axios.get("summary.json")
             .then(res => {
@@ -93,64 +94,80 @@ class Landing extends Component {
         //     return <p>Loading Data</p>
         //   };
 
-        console.log("==============app props==============");
-        //console.log(this.props.allRegions.Countries);
-        console.log("vero: testing data",this.state.allRegions.Countries
-        );
 
-        
+
+
+
         //console.log(this.state.allRegions.Countries[100]);
 
         // console.log(this.props.allRegions.Countries[10].TotalConfirmed);
 
-        if(this.state.loading){
-            return(<div>Page Loading</div>)
+        if (this.state.loading) {
+            return (<div>Page Loading</div>)
         }
         else
+
+            console.log("==============app props==============");
+        //console.log(this.props.allRegions.Countries);
+        console.log("vero: testing data", this.props.allRegions.Countries);
+        
+        let gData= this.state.allRegions.Global;
+        console.log(gData.TotalConfirmed);
+
+
+
         return (
             <>
+                <div>
+
+                    <SelectedCountries />
 
 
-                <div>Selected Countries</div>
-                <SelectedCountries />
-                <div>All Country Table</div>
-                Landing
 
-                {/* {this.state.allRegions.Countries.map(country =>{
-                    return country.Country
-                })} */}
-                {/* {this.props.allRegions.Countries} */}
+                    <div>
 
-                {/* {this.props.allRegions.Countries[142].TotalConfirmed} */}
-                {/* {this.state.allRegions.Countries[142].TotalConfirmed} */}
 
-                 <table id="scrollTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" striped bordered hover size="sm" variant="dark" >
-                    <thead>
-                        <th class="th-sm">Region/Country</th>
-                        <th class="th-sm">Total Cases</th>
-                        <th class="th-sm">Total Death</th>
-                        <th class="th-sm">Total Recovery</th>
-                    </thead>
+                    </div>
+                    <table id="scrollTable" class="table table-striped table-bordered table-sm table-dark" cellspacing="0" width="100%" striped bordered hover size="sm" variant="dark" >
+                        <thead>
+                            <th class="th-sm" width="23%">Region/Country</th>
+                            <th class="th-sm">Total Cases</th>
+                            <th class="th-sm">New Cases (Past 24H)</th>
+                            <th class="th-sm">Total Death</th>
+                            <th class="th-sm">Total Recovery</th>
+                            <th className="center">Add to Compare (4 Max.)</th>
+                        </thead>
 
-                    <tbody>
 
-                        {
-                            this.state.allRegions.Countries.map((region, index) => {
-                            
-                                return <tr key={region.Country}>
-                                    <td>{region.Country}</td>
-                                    <td>{region.TotalConfirmed}</td>
-                                    <td>{region.TotalDeaths}</td>
-                                    <td>{region.TotalRecovered}</td>
-                                    <td>
-                                        <button
-                                            onClick={({data = region}) => this.props.addCountry(data)}
-                                        >Add to Compare</button></td>
-                                </tr>
-                            })
-                        }
-                    </tbody>
-                </table> 
+                        <tbody>
+
+                        <td><b>Global </b></td>
+                        <td><b>{gData.TotalConfirmed} </b></td>
+                        <td><b>{gData.TotalDeaths} </b></td>
+                        <td><b>{gData.TotalRecovered} </b></td>
+
+                            {
+                                this.state.allRegions.Countries.map((region, index) => {
+
+                                    
+
+                                    return <tr key={region.Country}>
+                                        <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/flat/24.png"}></img> {region.Country}</td>
+                                        <td>{region.TotalConfirmed}</td>
+                                        <td>{region.NewConfirmed}</td>
+                                        <td>{region.TotalDeaths}</td>
+                                        <td>{region.TotalRecovered}</td>
+                                        
+                                        <td className="center">
+                                            <button
+                                                onClick={({ data = region }) => this.props.addCountry(data)}
+                                            >Add</button></td>
+                                    </tr>
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </>
         )
     }
@@ -188,7 +205,7 @@ let mapDispatchToProps = (dispatch) => {
 //     function outside({name = region}){
 
 //         return function inside(name){
-    
+
 //         }
 //     }
 

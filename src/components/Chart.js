@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import {Doughnut} from "react-chartjs-2";
 
 
 
 class Chart extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { 
+            search: null,
+            cases: []
+        }
+    }
 
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = { 
-    //         search: null,
-    //         cases: []
-    //     }
-    // }
-
-    // componentDidMount() {
-    //     axios.get("https://corona.lmao.ninja/v2/states")
-    //         .then(res => {
-    //             const cases = res.data;
-    //             this.setState({ cases });
-    //         })
-    // }
+    componentDidMount() {
+        axios.get("https://corona.lmao.ninja/v2/states")
+            .then(res => {
+                const cases = res.data;
+                this.setState({ cases });
+            })
+    }
 
     searchCases = (e) => {
         let keyword = e.target.value;

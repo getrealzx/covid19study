@@ -32,20 +32,7 @@ let dataReducer = (state, action) => {
                 }
 
             ],
-            selected: [
-                {
-                    "Country": "Bangladesh",
-                    "CountryCode": "BD",
-                    "Slug": "bangladesh",
-                    "NewConfirmed": 219,
-                    "TotalConfirmed": 1231,
-                    "NewDeaths": 4,
-                    "TotalDeaths": 50,
-                    "NewRecovered": 7,
-                    "TotalRecovered": 49,
-                    "Date": "2020-04-16T14:09:46Z"
-                }
-            ]
+            selected: []
 
         }
     }
@@ -61,11 +48,23 @@ let dataReducer = (state, action) => {
 
 
         case ADD_COUNTRY:
+            if(state.selected.includes(action.payload)){
+                // console.log("xxxxxxxxxxxxxxxxxxxxxxExistedxxxxxxxxxxxxxxxxxxx");
+                alert("Entry is already selected");
+                return state;
+
+            }
+
+            else if(state.selected.length>=4){
+                alert("You may select up to 4 to study,Too Many Selected!");
+                return state;
+            }
             
             return{
                 ...state,
                 selected: state.selected.concat(action.payload)
             }
+            
 
 
         case DELETE_COUNTRY:

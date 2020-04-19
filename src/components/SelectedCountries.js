@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { deleteCountry } from "../actions/actions"
+import './styles.css';
 
 //import {newActionCreatorFunction} from "someactioncreator"
 // import Chart from './Chart'
@@ -27,8 +28,8 @@ class SelectedCountries extends Component {
                     <table>
                         <thead>
                             <tr>
-                                <th> Added Country Name  </th>
-                                <th> Remove </th>
+                                <th><b> Added Country Name</b> </th>
+                                <th><b> Remove</b> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,7 +38,7 @@ class SelectedCountries extends Component {
                                 this.props.selected.map((region, index) => {
 
                                     return <tr key={region.Country}>
-                                        <td>{region.Country}</td>
+                                        <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/shiny/32.png"}></img> {region.Country}</td>
                                         <td><button 
                                         onClick={({data = region}) => {
                                             this.props.deleteCountry(data)}}
