@@ -24,38 +24,11 @@ class Landing extends Component {
 
     }
 
-    // componentWillMount() {
-    //     this.props.loadData();
-    // };
+   
+    componentWillMount() {
 
 
-    ///https://api.covid19api.com/summary
-
-    // componentWillMount() {
-    //     fetch("summary.json")
-    //         .then(result => result.json())
-    //         .then(data => {
-    //             this.setState({
-    //                 allRegions: data,
-    //                 // loading: false,
-    //                 selected: []
-
-    //             }                   ,
-    //                 () => {
-
-    //                     return this.props.loadData(this.state)
-    //                 }
-
-
-
-    //             );
-    //         })
-    // }
-
-    async componentWillMount() {
-
-
-        ///https://api.covid19api.com/summary
+        // axios.get("https://api.covid19api.com/summary")
 
         axios.get("summary.json")
             .then(res => {
@@ -103,7 +76,7 @@ class Landing extends Component {
         // console.log(this.props.allRegions.Countries[10].TotalConfirmed);
 
         if (this.state.loading) {
-            return (<div>Page Loading</div>)
+            return (<div>Data Loading</div>)
         }
         else
 

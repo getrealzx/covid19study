@@ -1,4 +1,4 @@
-import { LOAD_DATA, ADD_COUNTRY, DELETE_COUNTRY} from '../actions/types';
+import { LOAD_DATA, ADD_COUNTRY, DELETE_COUNTRY } from '../actions/types';
 
 
 let dataReducer = (state, action) => {
@@ -32,7 +32,54 @@ let dataReducer = (state, action) => {
                 }
 
             ],
-            selected: []
+            selected: [{
+                "Country": "Western Sahara",
+                "CountryCode": "EH",
+                "Slug": "western-sahara",
+                "NewConfirmed": 0,
+                "TotalConfirmed": 6,
+                "NewDeaths": 0,
+                "TotalDeaths": 0,
+                "NewRecovered": 0,
+                "TotalRecovered": 0,
+                "Date": "2020-04-16T14:09:46Z"
+            },
+            {
+                "Country": "Yemen",
+                "CountryCode": "YE",
+                "Slug": "yemen",
+                "NewConfirmed": 0,
+                "TotalConfirmed": 1,
+                "NewDeaths": 0,
+                "TotalDeaths": 0,
+                "NewRecovered": 0,
+                "TotalRecovered": 0,
+                "Date": "2020-04-16T14:09:46Z"
+            },
+            {
+                "Country": "Zambia",
+                "CountryCode": "ZM",
+                "Slug": "zambia",
+                "NewConfirmed": 3,
+                "TotalConfirmed": 48,
+                "NewDeaths": 0,
+                "TotalDeaths": 2,
+                "NewRecovered": 0,
+                "TotalRecovered": 30,
+                "Date": "2020-04-16T14:09:46Z"
+            },
+            {
+                "Country": "Zimbabwe",
+                "CountryCode": "ZW",
+                "Slug": "zimbabwe",
+                "NewConfirmed": 6,
+                "TotalConfirmed": 23,
+                "NewDeaths": 0,
+                "TotalDeaths": 3,
+                "NewRecovered": 1,
+                "TotalRecovered": 1,
+                "Date": "2020-04-16T14:09:46Z"
+            }]
 
         }
     }
@@ -48,23 +95,23 @@ let dataReducer = (state, action) => {
 
 
         case ADD_COUNTRY:
-            if(state.selected.includes(action.payload)){
+            if (state.selected.includes(action.payload)) {
                 // console.log("xxxxxxxxxxxxxxxxxxxxxxExistedxxxxxxxxxxxxxxxxxxx");
                 alert("Entry is already selected");
                 return state;
 
             }
 
-            else if(state.selected.length>=4){
+            else if (state.selected.length >= 4) {
                 alert("You may select up to 4 to study,Too Many Selected!");
                 return state;
             }
-            
-            return{
+
+            return {
                 ...state,
                 selected: state.selected.concat(action.payload)
             }
-            
+
 
 
         case DELETE_COUNTRY:
@@ -76,7 +123,7 @@ let dataReducer = (state, action) => {
             })
             console.log("updatedLIst", updatedList);
 
-            return{
+            return {
                 ...state,
                 selected: updatedList
             }

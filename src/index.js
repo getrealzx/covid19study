@@ -6,10 +6,12 @@ import { createStore } from 'redux';
 // import { applyMiddleware, compose } from 'redux';
 
 // import thunk from 'redux-thunk';
-import dataReducer from './reducers/dataReducer'
-import BaseLayout from './components/layout/BaseLayout'
+import dataReducer from './reducers/dataReducer';
+import BaseLayout from './components/layout/BaseLayout';
 
-import Landing from './components/Landing'
+import Landing from './components/Landing';
+import Chart from "./components/Chart";
+
 
 
 
@@ -48,6 +50,7 @@ ReactDOM.render(
       <BaseLayout>
         <Switch>
           <Route exact path="/" component={Landing} />
+          <Route exact path="/chart" component={Chart} />
           {/* <Route exact path="/compare" component={Compare} /> */}
         </Switch>
       </BaseLayout>

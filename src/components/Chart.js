@@ -1,95 +1,147 @@
 import React, { Component } from 'react';
+import { Line } from 'react-chartjs-2';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import axios from "axios";
-import {Doughnut} from "react-chartjs-2";
+
 
 
 
 class Chart extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { 
-            search: null,
-            cases: []
-        }
-    }
 
-    componentDidMount() {
-        axios.get("https://corona.lmao.ninja/v2/states")
+    async componentWillMount() {
+
+
+        //https://api.covid19api.com/total/country/china
+        //china.json
+
+
+        let countrySlug0 = this.props.selected[0].Slug;
+        let countrySlug1 = this.props.selected[1].Slug;
+        let countrySlug2 = this.props.selected[2].Slug;
+        let countrySlug3 = this.props.selected[3].Slug;
+
+        // let countryName0 = this.props.selected[0].Country;
+        // let countryName1 = this.props.selected[1].Country;
+        // let countryName2 = this.props.selected[2].Country;
+        // let countryName3 = this.props.selected[3].Country;
+
+        console.log("list All Sectect Country Nmes",
+            countrySlug0,
+            countrySlug1,
+            countrySlug2,
+            countrySlug3
+        )
+
+
+
+
+        let countryAPI = "https://api.covid19api.com/total/country/" + countrySlug0;
+        console.log(countryAPI);
+
+        axios.get(countryAPI)
             .then(res => {
-                const cases = res.data;
-                this.setState({ cases });
+                const historyData = res.data;
+                // console.log("test axio data-------------------");
+                // console.log(allRegions.Countries[142].TotalConfirmed);
+
+                //setting local state
+                this.setState({
+                    historyData: historyData,
+                    loading: false
+
+                }
+                    // ,
+                    // () => {
+                    //     console.log("test state in axios-------------------")
+                    //     console.log(this.state.historyData[20].Country)
+                    // }
+
+
+
+                );
             })
     }
 
-    searchCases = (e) => {
-        let keyword = e.target.value;
-        this.setState({
-            search: keyword
-        })
-    }
 
-    // handleReset = (e) => {
-    //     e.preventDefault();
-    //     this.setState({
-    //         search: null,
-    //         cases: []
-    //     })
-    // }
 
-  render() {
-      
-    const covid = this.state.cases.filter(data => {
-        if (this.state.search == null) return
-        else if (data.state.toLowerCase().includes(this.state.search.toLowerCase())) return data
-    })
-    .map(data => {
 
-        const donut = {
-            labels: [
-                'Total Cases',
-                'New Cases',
-                'Total Deaths',
-                'Number of Deaths Today'
-            ],
-            datasets: [{
-                data: [data.cases, data.todayCases, data.deaths, data.todayDeaths],
-                backgroundColor: [
-                    "#309FDB",
-                    "#FBCE4A",
-                    "#854E9B",
-                    "#E95B54"
-                ]
-            }]
+    render() {
+
+        // if (this.state.loading) {
+        //     return <div>Data Loading</div>
+        // };
+        // else
+        // console.log(this.state.historyData[20].Country);
+        console.log(this.state);
+
+
+
+        // console.log("prop selected++++++++++++++++++",this.props.selected[0].Country);
+        // console.log(this.state.historyData[1]);
+
+        const state = {
+            labels: ['January', 'February', 'March',
+                'April', 'May', "what"],
+            datasets: [
+                {
+                    label: "this.state.historyData[20].Country",
+                    fill: false,
+                    lineTension: 0.5,
+                    backgroundColor: 'rgba(75,192,192,1)',
+                    borderColor: 'rgba(0,0,0,1)',
+                    borderWidth: 2,
+                    data: [78, 59, 80, 81, 56, 99]
+                },
+                {
+                    label: 'SkyFall',
+                    fill: true,
+                    lineTension: 0.5,
+                    backgroundColor: 'rgba(75,192,192,1)',
+                    borderColor: 'rgba(190,2,2,2)',
+                    borderWidth: 2,
+                    data: [8, 29, 10, 181, 36]
+                }
+            ]
         }
 
         return (
-            <div className="covid-case-data">
-                <h3>State: {data.state}</h3>
-                <ul>
-                    <li>Total Cases: {data.cases}</li>
-                    <li>Today's Cases: {data.todayCases}</li>
-                    <li>Total Deaths: {data.deaths}</li>
-                    <li>Death's Today: {data.todayDeaths}</li>
-                </ul>
-                <div className="chart-container">
-                    <Doughnut data={donut} />
-                </div>
+            <div>
+                <Line
+                    data={state}
+                    options={{
+                        title: {
+                            display: true,
+                            text: 'Total Cases',
+                            fontSize: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }}
+                />
             </div>
-        )
-    })
-
-    return (
-        <div className="covid-data">
-            <input type="text" placeholder="Enter search term" onChange={e=>this.searchCases(e)} />
-            <form onSubmit={this.handleReset}>
-                <button type="submit">Reset</button>
-            </form>
-            {covid}
-            
-        </div>
-      );
-  }
+        );
+    }
 }
 
-export default Chart
+
+let mapStateToProps = (state) => {
+    return {
+        selected: state.selected
+    }
+};
+
+let mapDispatchToProps = (dispatch) => {
+
+    return {
+    }
+}
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chart)
+
