@@ -33,54 +33,55 @@ let dataReducer = (state, action) => {
 
             ],
             selected: [
-            {
-                "Country": "Yemen",
-                "CountryCode": "YE",
-                "Slug": "yemen",
-                "NewConfirmed": 0,
-                "TotalConfirmed": 1,
-                "NewDeaths": 0,
-                "TotalDeaths": 0,
-                "NewRecovered": 0,
-                "TotalRecovered": 0,
-                "Date": "2020-04-16T14:09:46Z"
-            },
-            {
-                "Country": "Zambia",
-                "CountryCode": "ZM",
-                "Slug": "zambia",
-                "NewConfirmed": 3,
-                "TotalConfirmed": 48,
-                "NewDeaths": 0,
-                "TotalDeaths": 2,
-                "NewRecovered": 0,
-                "TotalRecovered": 30,
-                "Date": "2020-04-16T14:09:46Z"
-            },
-            {
-                "Country": "Zimbabwe",
-                "CountryCode": "ZW",
-                "Slug": "zimbabwe",
-                "NewConfirmed": 6,
-                "TotalConfirmed": 23,
-                "NewDeaths": 0,
-                "TotalDeaths": 3,
-                "NewRecovered": 1,
-                "TotalRecovered": 1,
-                "Date": "2020-04-16T14:09:46Z"
-            },
-            {
-                "Country": "Argentina",
-                "CountryCode": "AR",
-                "Slug": "argentina",
-                "NewConfirmed": 166,
-                "TotalConfirmed": 2443,
-                "NewDeaths": 9,
-                "TotalDeaths": 111,
-                "NewRecovered": 37,
-                "TotalRecovered": 596,
-                "Date": "2020-04-16T14:09:46Z"
-            }]
+            // {
+            //     "Country": "Yemen",
+            //     "CountryCode": "YE",
+            //     "Slug": "yemen",
+            //     "NewConfirmed": 0,
+            //     "TotalConfirmed": 1,
+            //     "NewDeaths": 0,
+            //     "TotalDeaths": 0,
+            //     "NewRecovered": 0,
+            //     "TotalRecovered": 0,
+            //     "Date": "2020-04-16T14:09:46Z"
+            // },
+            // {
+            //     "Country": "Zambia",
+            //     "CountryCode": "ZM",
+            //     "Slug": "zambia",
+            //     "NewConfirmed": 3,
+            //     "TotalConfirmed": 48,
+            //     "NewDeaths": 0,
+            //     "TotalDeaths": 2,
+            //     "NewRecovered": 0,
+            //     "TotalRecovered": 30,
+            //     "Date": "2020-04-16T14:09:46Z"
+            // },
+            // {
+            //     "Country": "Zimbabwe",
+            //     "CountryCode": "ZW",
+            //     "Slug": "zimbabwe",
+            //     "NewConfirmed": 6,
+            //     "TotalConfirmed": 23,
+            //     "NewDeaths": 0,
+            //     "TotalDeaths": 3,
+            //     "NewRecovered": 1,
+            //     "TotalRecovered": 1,
+            //     "Date": "2020-04-16T14:09:46Z"
+            // },
+            // {
+            //     "Country": "Argentina",
+            //     "CountryCode": "AR",
+            //     "Slug": "argentina",
+            //     "NewConfirmed": 166,
+            //     "TotalConfirmed": 2443,
+            //     "NewDeaths": 9,
+            //     "TotalDeaths": 111,
+            //     "NewRecovered": 37,
+            //     "TotalRecovered": 596,
+            //     "Date": "2020-04-16T14:09:46Z"
+            // }
+        ]
 
         }
     }

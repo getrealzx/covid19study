@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { loadData, addCountry } from '../actions/actions';
 import axios from "axios";
 import SelectedCountries from './SelectedCountries';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import MaterialTable from 'material-table';
 
 
 // import Table from 'react-bootstrap/Table';
@@ -24,7 +24,7 @@ class Landing extends Component {
 
     }
 
-   
+
     componentWillMount() {
 
 
@@ -60,20 +60,13 @@ class Landing extends Component {
 
 
 
+
+
+
+
     render() {
 
 
-        // if (this.props.loading) {
-        //     return <p>Loading Data</p>
-        //   };
-
-
-
-
-
-        //console.log(this.state.allRegions.Countries[100]);
-
-        // console.log(this.props.allRegions.Countries[10].TotalConfirmed);
 
         if (this.state.loading) {
             return (<div>Data Loading</div>)
@@ -81,11 +74,66 @@ class Landing extends Component {
         else
 
             console.log("==============app props==============");
-        //console.log(this.props.allRegions.Countries);
-        // console.log("vero: testing data", this.props.allRegions.Countries);
+
+        let gData = this.state.allRegions.Global;
+        console.log(gData.TotalConfirmed);
+        console.log("gggggggggggggggggg", this.state.allRegions.Countries[100].TotalConfirmed);
+
         
-        let gData= this.state.allRegions.Global;
-        // console.log(gData.TotalConfirmed);
+            const state={
+                columns: [
+                    { title: 'Region', field: 'region' },
+                    { title: 'Total Cases', field: 'totalcases', type: 'numeric' },
+                    { title: "Today's Cases", field: 'todayscases', type: 'numeric' },
+                    { title: "Total Deaths", field: 'totaldeaths', type: 'numeric' },
+                    { title: "Total Recovery", field: 'totalrevovery', type: 'numeric' },
+
+                ],
+
+                data:
+
+                    this.state.allRegions.Countries.map((region,index)=>{
+                        return{
+                            region:region.Country,
+                            totalcases:region.TotalConfirmed,
+                            todayscases:region.NewConfirmed,
+                            totaldeaths:region.TotalDeaths,
+                            totalrevovery:region.TotalRecovered
+                        }
+                    })
+
+                    // [
+                    //     {
+                    //         region: "Any Country",
+                    //         totalcases: 2421,
+                    //         todayscases: 5,
+                    //         totaldeaths: 24,
+                    //         totalrevovery: 21232
+
+                    //     },
+                    //     {
+                    //         region: "xxx",
+                    //         totalcases: 15,
+                    //         todayscases: 52,
+                    //         totaldeaths: 241,
+                    //         totalrevovery: 212232
+
+                    //     },
+                    // ],
+            }
+
+            // console.log("state for fucTable",state.data);
+
+            // return (
+            // <MaterialTable
+            //     title="Editable Example"
+            //     columns={state.columns}
+            //     data={state.data}
+            //     editable={{
+            //     }}
+            // />
+        // );
+    
 
 
 
@@ -94,7 +142,11 @@ class Landing extends Component {
                 <div>
 
                     <SelectedCountries />
-
+                    <MaterialTable
+                        title="Global Status"
+                        columns={state.columns}
+                        data={state.data}
+                    />
 
 
                     <div>
@@ -114,23 +166,23 @@ class Landing extends Component {
 
                         <tbody>
 
-                        <td><b>Global </b></td>
-                        <td><b>{gData.TotalConfirmed} </b></td>
-                        <td><b>{gData.TotalDeaths} </b></td>
-                        <td><b>{gData.TotalRecovered} </b></td>
+                            <td><b>Global </b></td>
+                            <td><b>{gData.TotalConfirmed} </b></td>
+                            <td><b>{gData.TotalDeaths} </b></td>
+                            <td><b>{gData.TotalRecovered} </b></td>
 
                             {
                                 this.state.allRegions.Countries.map((region, index) => {
 
-                                    
+
 
                                     return <tr key={region.Country}>
-                                        <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/flat/24.png"} className="pl-3 pr-2"></img> {region.Country}</td>
+                                        <td><img src={"https://www.countryflags.io/" + region.CountryCode + "/flat/24.png"} className="pl-3 pr-2"></img> {region.Country}</td>
                                         <td>{region.TotalConfirmed}</td>
                                         <td>{region.NewConfirmed}</td>
                                         <td>{region.TotalDeaths}</td>
                                         <td>{region.TotalRecovered}</td>
-                                        
+
                                         <td className="center">
                                             <button className="btn btn-light rounded-pill "
                                                 onClick={({ data = region }) => this.props.addCountry(data)}
@@ -173,19 +225,6 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-// array.map(region =>{
-
-//     function outside({name = region}){
-
-//         return function inside(name){
-
-//         }
-//     }
-
-// })
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
-// export default connect(mapStateToProps, { loadData })(Landing);
-// export default Landing

@@ -16,8 +16,8 @@ class LineChart extends Component {
                 // { label: "" , labels: [] , data: [] },
                 // { label: "" , labels: [] , data: [] }
             ],
-      
-        
+
+
             loading: true,
 
 
@@ -28,7 +28,7 @@ class LineChart extends Component {
 
 
         let countryAPI = "";
-        let n=0;
+        let n = 0;
 
         let countryAPIs = this.props.selected.map(countryObj => {
             n++;
@@ -37,51 +37,36 @@ class LineChart extends Component {
             console.log(countryAPI);
 
             axios.get(countryAPI)
-            .then(res => {
-                const historyData = res.data;
+                .then(res => {
+                    const historyData = res.data;
 
-                let labels = [];
-                let data = [];
-                let label = historyData[n].Country;
+                    let labels = [];
+                    let data = [];
+                    let label = historyData[n].Country;
 
-                historyData.forEach(e => {
-                    labels.push(e.Date.slice(0, 10))
-                    data.push(e.Confirmed)
-                });
+                    historyData.forEach(e => {
+                        labels.push(e.Date.slice(0, 10))
+                        data.push(e.Confirmed)
+                    });
 
-                let singleHistoryData={label:label,labels:labels,data:data};
-   
+                    let singleHistoryData = { label: label, labels: labels, data: data };
 
 
-                console.log(data)
 
-                this.setState({
-                    ...this.state,
-                    allHistoryData: this.state.allHistoryData.concat(singleHistoryData),
-                    loading: false
-                });
-            })
+                    console.log(data)
+
+                    this.setState({
+                        ...this.state,
+                        allHistoryData: this.state.allHistoryData.concat(singleHistoryData),
+                        loading: false
+                    });
+                })
 
 
             return countryAPI
         });
 
         console.log(countryAPIs);
-
-
-
-
-
-
-        // axios.get("china.json")
-
-
-
-
-        
-
-
-
 
     }
 
@@ -114,32 +99,19 @@ class LineChart extends Component {
                     label: countryDataObj.label,
                     fill: false,
                     lineTension: 0.9,
-                    backgroundColor: 'rgba(75,192,192,1)',
-                    borderColor: 'rgba(0,0,0,1)',
+                    backgroundColor: 'auto',
+                    borderColor: "#E0E0E0",
                     borderWidth: 2,
                     data: countryDataObj.data
                 }
-              
+
             }
             )
 
-
-            // datasets:
-            //     [
-            //         {
-            //             label: this.state.allHistoryData[0].label,
-            //             fill: false,
-            //             lineTension: 0.9,
-            //             backgroundColor: 'rgba(75,192,192,1)',
-            //             borderColor: 'rgba(0,0,0,1)',
-            //             borderWidth: 2,
-            //             data: this.state.allHistoryData[0].data
-            //         }
-            //     ]
         }
 
         return (
-            <div>
+            <div className="m-5">
                 <Line
                     data={state}
                     options={{
