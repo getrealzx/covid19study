@@ -6,7 +6,7 @@ const Header = (props) => {
         <>
             <nav>
                 <div className="nav-wrapper  blue-grey">
-                    <a href="any.com" className="brand-logo">Logo</a>
+                    <a href="any.com" className="brand-logo">Covid19 Study</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/chart">Chart Compare</Link></li>

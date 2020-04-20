@@ -23,10 +23,10 @@ class DoughnutChart extends Component {
                 datasets: [{
                     data: [region.TotalConfirmed, region.NewConfirmed, region.TotalDeaths, region.NewDeaths],
                     backgroundColor: [
-                        "#309FDB",
-                        "#FBCE4A",
-                        "#854E9B",
-                        "#E95B54"
+                        "#D9584A",
+                        "#FFCE05",
+                        "#393422",
+                        "#323475"
                     ]
                 }]
             }

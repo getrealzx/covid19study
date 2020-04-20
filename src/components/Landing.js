@@ -5,6 +5,8 @@ import { loadData, addCountry } from '../actions/actions';
 import axios from "axios";
 import SelectedCountries from './SelectedCountries';
 import MaterialTable from 'material-table';
+import Button from 'material-table';
+import { createLogger } from 'redux-logger';
 
 
 // import Table from 'react-bootstrap/Table';
@@ -28,9 +30,9 @@ class Landing extends Component {
     componentWillMount() {
 
 
-        // axios.get("https://api.covid19api.com/summary")
+        axios.get("https://api.covid19api.com/summary")
 
-        axios.get("summary.json")
+        // axios.get("summary.json")
             .then(res => {
                 const allRegions = res.data;
                 // console.log("test axio data-------------------");
@@ -57,7 +59,19 @@ class Landing extends Component {
             })
     }
 
+    // handleCheckboxClick = (rowData) => {
+    //     this.setState({
+    //       selectedItems: {
+    //         ...rowData,
+    //         tableData: {
+    //           checked: true,
+    //         }
+    //       }
+    //     });
 
+    //     this.props.addCountry(rowData)
+
+    //   }
 
 
 
@@ -79,61 +93,48 @@ class Landing extends Component {
         console.log(gData.TotalConfirmed);
         console.log("gggggggggggggggggg", this.state.allRegions.Countries[100].TotalConfirmed);
 
+
+        // const state = {
+        //     columns: [
+        //         { title: 'Region', field: 'region' },
+        //         { title: 'Total Cases', field: 'totalcases', type: 'numeric' },
+        //         { title: "Today's Cases", field: 'todayscases', type: 'numeric' },
+        //         { title: "Total Deaths", field: 'totaldeaths', type: 'numeric' },
+        //         { title: "Total Recovery", field: 'totalrevovery', type: 'numeric' },
+        //         { title: "Add to Compare (4 Max.)", field: 'add', },
+
+        //     ],
+
+        //     data:
+
+        //         this.state.allRegions.Countries.map((region, index) => {
+        //             return {
+        //                 region: region.Country,
+        //                 totalcases: region.TotalConfirmed,
+        //                 todayscases: region.NewConfirmed,
+        //                 totaldeaths: region.TotalDeaths,
+        //                 totalrevovery: region.TotalRecovered,
+        //                 // add: <Button> d</Button>,
+
+        //             }
+        //         })
+
+        //     // [
+        //     //     {
+        //     //         region: "Any Country",
+        //     //         totalcases: 2421,
+        //     //         todayscases: 5,
+        //     //         totaldeaths: 24,
+        //     //         totalrevovery: 21232
+
+        //     //     },
+        //     // ],
+
+        // }
         
-            const state={
-                columns: [
-                    { title: 'Region', field: 'region' },
-                    { title: 'Total Cases', field: 'totalcases', type: 'numeric' },
-                    { title: "Today's Cases", field: 'todayscases', type: 'numeric' },
-                    { title: "Total Deaths", field: 'totaldeaths', type: 'numeric' },
-                    { title: "Total Recovery", field: 'totalrevovery', type: 'numeric' },
 
-                ],
 
-                data:
 
-                    this.state.allRegions.Countries.map((region,index)=>{
-                        return{
-                            region:region.Country,
-                            totalcases:region.TotalConfirmed,
-                            todayscases:region.NewConfirmed,
-                            totaldeaths:region.TotalDeaths,
-                            totalrevovery:region.TotalRecovered
-                        }
-                    })
-
-                    // [
-                    //     {
-                    //         region: "Any Country",
-                    //         totalcases: 2421,
-                    //         todayscases: 5,
-                    //         totaldeaths: 24,
-                    //         totalrevovery: 21232
-
-                    //     },
-                    //     {
-                    //         region: "xxx",
-                    //         totalcases: 15,
-                    //         todayscases: 52,
-                    //         totaldeaths: 241,
-                    //         totalrevovery: 212232
-
-                    //     },
-                    // ],
-            }
-
-            // console.log("state for fucTable",state.data);
-
-            // return (
-            // <MaterialTable
-            //     title="Editable Example"
-            //     columns={state.columns}
-            //     data={state.data}
-            //     editable={{
-            //     }}
-            // />
-        // );
-    
 
 
 
@@ -142,11 +143,18 @@ class Landing extends Component {
                 <div>
 
                     <SelectedCountries />
-                    <MaterialTable
+                    {/* <MaterialTable
                         title="Global Status"
                         columns={state.columns}
                         data={state.data}
-                    />
+                        rowsPerPage={100}
+                        options={{
+                            selection: true
+                        }}
+                        onSelectionChange={this.handleCheckboxClick}
+
+
+                    /> */}
 
 
                     <div>

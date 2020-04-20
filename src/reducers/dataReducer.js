@@ -33,54 +33,54 @@ let dataReducer = (state, action) => {
 
             ],
             selected: [
-            // {
-            //     "Country": "Yemen",
-            //     "CountryCode": "YE",
-            //     "Slug": "yemen",
-            //     "NewConfirmed": 0,
-            //     "TotalConfirmed": 1,
-            //     "NewDeaths": 0,
-            //     "TotalDeaths": 0,
-            //     "NewRecovered": 0,
-            //     "TotalRecovered": 0,
-            //     "Date": "2020-04-16T14:09:46Z"
-            // },
-            // {
-            //     "Country": "Zambia",
-            //     "CountryCode": "ZM",
-            //     "Slug": "zambia",
-            //     "NewConfirmed": 3,
-            //     "TotalConfirmed": 48,
-            //     "NewDeaths": 0,
-            //     "TotalDeaths": 2,
-            //     "NewRecovered": 0,
-            //     "TotalRecovered": 30,
-            //     "Date": "2020-04-16T14:09:46Z"
-            // },
-            // {
-            //     "Country": "Zimbabwe",
-            //     "CountryCode": "ZW",
-            //     "Slug": "zimbabwe",
-            //     "NewConfirmed": 6,
-            //     "TotalConfirmed": 23,
-            //     "NewDeaths": 0,
-            //     "TotalDeaths": 3,
-            //     "NewRecovered": 1,
-            //     "TotalRecovered": 1,
-            //     "Date": "2020-04-16T14:09:46Z"
-            // },
-            // {
-            //     "Country": "Argentina",
-            //     "CountryCode": "AR",
-            //     "Slug": "argentina",
-            //     "NewConfirmed": 166,
-            //     "TotalConfirmed": 2443,
-            //     "NewDeaths": 9,
-            //     "TotalDeaths": 111,
-            //     "NewRecovered": 37,
-            //     "TotalRecovered": 596,
-            //     "Date": "2020-04-16T14:09:46Z"
-            // }
+            {
+                "Country": "United States of America",
+                "CountryCode": "US",
+                "Slug": "united-states",
+                "NewConfirmed": 26877,
+                "TotalConfirmed": 758479,
+                "NewDeaths": 1997,
+                "TotalDeaths": 40644,
+                "NewRecovered": 5497,
+                "TotalRecovered": 70337,
+                "Date": "2020-04-20T09:15:00Z"
+            },
+            {
+                "Country": "Korea (South)",
+                "CountryCode": "KR",
+                "Slug": "korea-south",
+                "NewConfirmed": 8,
+                "TotalConfirmed": 10661,
+                "NewDeaths": 2,
+                "TotalDeaths": 234,
+                "NewRecovered": 105,
+                "TotalRecovered": 8042,
+                "Date": "2020-04-20T09:15:00Z"
+            },
+            {
+                "Country": "Russian Federation",
+                "CountryCode": "RU",
+                "Slug": "russia",
+                "NewConfirmed": 6060,
+                "TotalConfirmed": 42853,
+                "NewDeaths": 48,
+                "TotalDeaths": 361,
+                "NewRecovered": 234,
+                "TotalRecovered": 3291,
+                "Date": "2020-04-20T09:15:00Z"
+            },
+            {
+                "Country": "China",
+                "CountryCode": "CN",
+                "Slug": "china",
+                "NewConfirmed": 18,
+                "TotalConfirmed": 83805,
+                "NewDeaths": 0,
+                "TotalDeaths": 4636,
+                "NewRecovered": 76,
+                "TotalRecovered": 77690,
+                "Date": "2020-04-20T09:15:00Z"
+            }
         ]
 
         }

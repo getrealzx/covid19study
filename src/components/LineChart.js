@@ -31,7 +31,6 @@ class LineChart extends Component {
         let n = 0;
 
         let countryAPIs = this.props.selected.map(countryObj => {
-            n++;
             console.log(n)
             countryAPI = "https://api.covid19api.com/total/country/" + countryObj.Slug;
             console.log(countryAPI);
@@ -42,7 +41,7 @@ class LineChart extends Component {
 
                     let labels = [];
                     let data = [];
-                    let label = historyData[n].Country;
+                    let label = countryObj.Country;
 
                     historyData.forEach(e => {
                         labels.push(e.Date.slice(0, 10))
@@ -61,6 +60,7 @@ class LineChart extends Component {
                         loading: false
                     });
                 })
+                n++;
 
 
             return countryAPI
@@ -88,6 +88,9 @@ class LineChart extends Component {
 
 
 
+        let colorSet=["#922B21", "#2E86C1","##B9770E","#212F3C"];
+        let borderColorSet =  ['Red', 'Blue', 'Purple', 'Yellow'];
+        let n=-1;
 
         const state = {
 
@@ -95,13 +98,16 @@ class LineChart extends Component {
             labels: this.state.allHistoryData[0].labels,
 
             datasets: this.state.allHistoryData.map((countryDataObj) => {
+
+
+                n++;
                 return {
                     label: countryDataObj.label,
                     fill: false,
                     lineTension: 0.9,
-                    backgroundColor: 'auto',
-                    borderColor: "#E0E0E0",
-                    borderWidth: 2,
+                    backgroundColor: colorSet[n],
+                    borderColor: borderColorSet[n],
+                    borderWidth: 3,
                     data: countryDataObj.data
                 }
 
