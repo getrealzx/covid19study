@@ -16,8 +16,8 @@ class LineChart extends Component {
                 // { label: "" , labels: [] , data: [] },
                 // { label: "" , labels: [] , data: [] }
             ],
-
-
+      
+        
             loading: true,
 
 
@@ -28,7 +28,7 @@ class LineChart extends Component {
 
 
         let countryAPI = "";
-        let n = 0;
+        let n=0;
 
         let countryAPIs = this.props.selected.map(countryObj => {
             n++;
@@ -37,30 +37,30 @@ class LineChart extends Component {
             console.log(countryAPI);
 
             axios.get(countryAPI)
-                .then(res => {
-                    const historyData = res.data;
+            .then(res => {
+                const historyData = res.data;
 
-                    let labels = [];
-                    let data = [];
-                    let label = historyData[n].Country;
+                let labels = [];
+                let data = [];
+                let label = historyData[n].Country;
 
-                    historyData.forEach(e => {
-                        labels.push(e.Date.slice(0, 10))
-                        data.push(e.Confirmed)
-                    });
+                historyData.forEach(e => {
+                    labels.push(e.Date.slice(0, 10))
+                    data.push(e.Confirmed)
+                });
 
-                    let singleHistoryData = { label: label, labels: labels, data: data };
+                let singleHistoryData={label:label,labels:labels,data:data};
+   
 
 
+                console.log(data)
 
-                    console.log(data)
-
-                    this.setState({
-                        ...this.state,
-                        allHistoryData: this.state.allHistoryData.concat(singleHistoryData),
-                        loading: false
-                    });
-                })
+                this.setState({
+                    ...this.state,
+                    allHistoryData: this.state.allHistoryData.concat(singleHistoryData),
+                    loading: false
+                });
+            })
 
 
             return countryAPI
@@ -78,7 +78,7 @@ class LineChart extends Component {
 
 
 
-
+        
 
 
 
@@ -97,12 +97,12 @@ class LineChart extends Component {
         }
         else
 
-            console.log("display Label", this.state.allHistoryData[0].label);
-        console.log(this.state);
+            console.log("display Label", this.state.allHistoryData[0].labels);
+        console.log(this.state.allHistoryData);
 
         const state = {
 
-            labels: this.state.allHistoryData[0].label,
+            labels: this.state.allHistoryData[0].labels,
             datasets:
                 [
                     {
