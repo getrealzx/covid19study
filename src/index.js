@@ -9,6 +9,7 @@ import BaseLayout from './components/layout/BaseLayout';
 
 import Landing from './components/Landing';
 import Chart from "./components/Chart";
+import SelectedCountries from './components/SelectedCountries'
 import MaterialTableDemo from "./components/test"
 import Map from './components/Map';
 // import store from './stores'
@@ -38,6 +39,7 @@ ReactDOM.render(
           {/* <Route exact path="/" component={Map} /> */}
           <Route exact path="/" component={Landing} />
           <Route exact path="/chart" component={Chart} />
+          <Route exact path="/selected" component={SelectedCountries} />
           {/* <Route exact path="/" component={MaterialTableDemo} /> */}
         </Switch>
       </BaseLayout>

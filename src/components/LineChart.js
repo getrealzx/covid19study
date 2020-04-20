@@ -88,8 +88,8 @@ class LineChart extends Component {
 
 
 
-        let colorSet=["#922B21", "#2E86C1","##B9770E","#212F3C"];
-        let borderColorSet =  ['Red', 'Blue', 'Purple', 'Yellow'];
+        let colorSet=['Red', 'Blue', 'Purple', 'Yellow',"#922B21", "#2E86C1","##B9770E","#212F3C"];
+        let borderColorSet =  ["#922B21", "#2E86C1","##B9770E","#212F3C",'Red', 'Blue', 'Purple', 'Yellow',];
         let n=-1;
 
         const state = {
@@ -117,7 +117,7 @@ class LineChart extends Component {
         }
 
         return (
-            <div className="m-5">
+            <div className="m-10 p-5 shadow ">
                 <Line
                     data={state}
                     options={{

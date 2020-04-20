@@ -104,8 +104,8 @@ let dataReducer = (state, action) => {
 
             }
 
-            else if (state.selected.length >= 4) {
-                alert("You may select up to 4 to study,Too Many Selected!");
+            else if (state.selected.length >= 8) {
+                alert("You may select up to 8 to study,Too Many Selected!");
                 return state;
             }
 

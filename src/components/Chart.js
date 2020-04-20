@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import LineChart from './LineChart'
 import DoughnutChart from './DoughnutChart'
-import SampleLineChart from './SampleLineChart'
 
 class Chart extends Component {
     render() {
@@ -11,7 +10,6 @@ class Chart extends Component {
                 <DoughnutChart />
                 </div>
                 <LineChart />
-                {/* <SampleLineChart /> */}
 
             </>
         )

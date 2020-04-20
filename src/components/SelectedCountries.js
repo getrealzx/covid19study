@@ -25,11 +25,11 @@ class SelectedCountries extends Component {
                 {/* <div><Chart /></div> */}
 
                 <div className="main">
-                    <table>
-                        <thead>
+                    <table className="table m-5 p-3 shadow rounded table-striped table-hover">
+                        <thead className="thead-dark">
                             <tr>
-                                <th><b> Added Country Name</b> </th>
-                                <th><b> Remove</b> </th>
+                                <th className="p-3" ><h5><b> Added Countries</b></h5> </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,8 +38,8 @@ class SelectedCountries extends Component {
                                 this.props.selected.map(region => {
 
                                     return <tr key={region.Country}>
-                                        <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/flat/32.png"}></img> <strong className="pl-3"> {region.Country} </strong></td>
-                                        <td><button className="btn btn-light rounded-pill"
+                                        <td className="p-3"><img src={"https://www.countryflags.io/"+region.CountryCode+"/flat/32.png"}></img> <strong className="pl-3"> {region.Country} </strong></td>
+                                        <td><button className="btn btn-light rounded-pill center"
                                         onClick={({data = region}) => {
                                             this.props.deleteCountry(data)}}
                                         

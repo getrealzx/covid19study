@@ -23,7 +23,7 @@ class DoughnutChart extends Component {
                 datasets: [{
                     data: [region.TotalConfirmed, region.NewConfirmed, region.TotalDeaths, region.NewDeaths],
                     backgroundColor: [
-                        "#D9584A",
+                        "#19A18F",
                         "#FFCE05",
                         "#393422",
                         "#323475"
@@ -43,7 +43,7 @@ class DoughnutChart extends Component {
             }
 
             return (
-                <div className="chart center p-3">
+                <div className="chart center p-3 m-5 shadow rounded">
                     <h6>Region:<strong> {region.Country}</strong></h6>
 
                     <div className="col">
