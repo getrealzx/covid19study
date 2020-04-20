@@ -21,6 +21,8 @@ class Landing extends Component {
         this.state = {
             allRegions: {},
             selected: [],
+            search: null,
+            searchRegions:[],
             loading: true
         }
 
@@ -59,6 +61,16 @@ class Landing extends Component {
             })
     }
 
+
+    
+    searchCases = (e) => {
+        let keyword = e.target.value;
+        this.setState({
+            search: keyword
+        })
+    }
+
+
     // handleCheckboxClick = (rowData) => {
     //     this.setState({
     //       selectedItems: {
@@ -91,7 +103,10 @@ class Landing extends Component {
 
         let gData = this.state.allRegions.Global;
         console.log(gData.TotalConfirmed);
-        console.log("gggggggggggggggggg", this.state.allRegions.Countries[100].TotalConfirmed);
+
+
+        
+        // console.log("gggggggggggggggggg", this.state.allRegions.Countries[100].TotalConfirmed);
 
 
         // const state = {
@@ -133,7 +148,51 @@ class Landing extends Component {
         // }
         
 
+        const countryTable = () => {
 
+            return(                    
+            <table id="scrollTable" class="table table-striped table-bordered table-sm table-dark" cellspacing="0" width="100%" striped bordered hover size="sm" variant="dark" >
+            <thead>
+                <th class="th-sm" width="23%">Region/Country</th>
+                <th class="th-sm">Total Cases</th>
+                <th class="th-sm">New Cases (Past 24H)</th>
+                <th class="th-sm">Total Death</th>
+                <th class="th-sm">Total Recovery</th>
+                <th className="center">Add to Compare (4 Max.)</th>
+            </thead>
+
+
+            <tbody>
+
+                <td><b>Global </b></td>
+                <td><b>{gData.TotalConfirmed} </b></td>
+                <td><b>{gData.TotalDeaths} </b></td>
+                <td><b>{gData.TotalRecovered} </b></td>
+
+                {
+                    this.state.allRegions.Countries.map((region, index) => {
+
+
+
+                        return <tr key={region.Country}>
+                            <td><img src={"https://www.countryflags.io/" + region.CountryCode + "/flat/24.png"} className="pl-3 pr-2"></img> {region.Country}</td>
+                            <td>{region.TotalConfirmed}</td>
+                            <td>{region.NewConfirmed}</td>
+                            <td>{region.TotalDeaths}</td>
+                            <td>{region.TotalRecovered}</td>
+
+                            <td className="center">
+                                <button className="btn btn-light rounded-pill "
+                                    onClick={({ data = region }) => this.props.addCountry(data)}
+                                >Add</button></td>
+                        </tr>
+                    })
+                }
+            </tbody>
+        </table>)
+          
+        }
+        
 
 
 
@@ -159,47 +218,9 @@ class Landing extends Component {
 
                     <div>
 
-
+                    {countryTable()}
                     </div>
-                    <table id="scrollTable" class="table table-striped table-bordered table-sm table-dark" cellspacing="0" width="100%" striped bordered hover size="sm" variant="dark" >
-                        <thead>
-                            <th class="th-sm" width="23%">Region/Country</th>
-                            <th class="th-sm">Total Cases</th>
-                            <th class="th-sm">New Cases (Past 24H)</th>
-                            <th class="th-sm">Total Death</th>
-                            <th class="th-sm">Total Recovery</th>
-                            <th className="center">Add to Compare (4 Max.)</th>
-                        </thead>
 
-
-                        <tbody>
-
-                            <td><b>Global </b></td>
-                            <td><b>{gData.TotalConfirmed} </b></td>
-                            <td><b>{gData.TotalDeaths} </b></td>
-                            <td><b>{gData.TotalRecovered} </b></td>
-
-                            {
-                                this.state.allRegions.Countries.map((region, index) => {
-
-
-
-                                    return <tr key={region.Country}>
-                                        <td><img src={"https://www.countryflags.io/" + region.CountryCode + "/flat/24.png"} className="pl-3 pr-2"></img> {region.Country}</td>
-                                        <td>{region.TotalConfirmed}</td>
-                                        <td>{region.NewConfirmed}</td>
-                                        <td>{region.TotalDeaths}</td>
-                                        <td>{region.TotalRecovered}</td>
-
-                                        <td className="center">
-                                            <button className="btn btn-light rounded-pill "
-                                                onClick={({ data = region }) => this.props.addCountry(data)}
-                                            >Add</button></td>
-                                    </tr>
-                                })
-                            }
-                        </tbody>
-                    </table>
                 </div>
             </>
         )
