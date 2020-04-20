@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from "axios";
 
@@ -8,63 +7,70 @@ import axios from "axios";
 
 
 class LineChart extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            historyData0: [],
+            historyData1: [],
+            historyData2: [],
+            historyData3: [],
+            chartData: [],
+            loading: true,
 
 
-        componentDidMount() {
+        }
+    }
+
+    componentDidMount() {
 
 
-        //https://api.covid19api.com/total/country/china
-        //china.json
+        let countryAPI ="";
 
+        let countryAPIs = this.props.selected.map(countryObj => {
+            countryAPI = "https://api.covid19api.com/total/country/" + countryObj.Slug;
+            console.log(countryAPI);
+            return countryAPI
+        });
 
-        let countrySlug0 = this.props.selected[0].Slug;
-        // let countrySlug1 = this.props.selected[1].Slug;
-        // let countrySlug2 = this.props.selected[2].Slug;
-        // let countrySlug3 = this.props.selected[3].Slug;
-
-        // let countryName0 = this.props.selected[0].Country;
-        // let countryName1 = this.props.selected[1].Country;
-        // let countryName2 = this.props.selected[2].Country;
-        // let countryName3 = this.props.selected[3].Country;
-
-        // console.log("list All Sectect Country Nmes",
-        //     countrySlug0,
-        //     countrySlug1,
-        //     countrySlug2,
-        //     countrySlug3
-        // )
+        console.log(countryAPIs);
 
 
 
 
-        let countryAPI = "https://api.covid19api.com/total/country/" + countrySlug0;
-        console.log(countryAPI);
 
-        axios.get("china.json")
+        // axios.get("china.json")
+        axios.get(countryAPIs[3])
             .then(res => {
                 const historyData = res.data;
-                // console.log("test axio data-------------------");
-                // console.log(allRegions.Countries[142].TotalConfirmed);
 
-                //setting local state
+                let labels = [];
+                let data = [];
+                let label=historyData[0].Country;
+
+                historyData.forEach(e => {
+                    labels.push(e.Date.slice(0, 10))
+                    data.push(e.Confirmed)
+                })
+
+                console.log(data)
+
                 this.setState({
-                    historyData: historyData,
-                    loading: false,
-                    // countryName0:countryName0
-
-
+                    label:label,
+                    labels: labels,
+                    data: data,
+                    loading: false
                 }
-                    ,
-                    () => {
-                        console.log("test state in axios-------------------")
-                        console.log(this.state.historyData[20].Country)
-       
-                    }
-
-
-
+                    // ,
+                    // () => {
+                    //     console.log("test state in axios-------------------")
+                    //     console.log(this.state.historyData0[20].Country)
+                    // }
                 );
             })
+
+
+
+
     }
 
 
@@ -72,50 +78,31 @@ class LineChart extends Component {
 
     render() {
 
-        // if (this.state.loading) {
-        //     return <div>Data Loading</div>
-        // };
-        // else
-        // console.log(this.state.historyData[20].Country);
-        // console.log(this.state.countryName0);
 
 
-
-        // console.log("prop selected++++++++++++++++++",this.props.selected[0].Country);
-        // console.log(this.state.historyData[1]);
-
-
-        let selectedData=(dataSet) => {
-
-
-            return dataSet
-          
+        if (this.state.loading) {
+            return (<div>Data Loading</div>)
         }
-        
+        else
+
+            console.log("display chartData", this.state.labels);
+        console.log(this.state.data);
 
         const state = {
-            labels: ['January', 'February', 'March',
-                'April', 'May', "what"],
-            datasets: [
-                {
-                    label: "name",
-                    fill: false,
-                    lineTension: 0.5,
-                    backgroundColor: 'rgba(75,192,192,1)',
-                    borderColor: 'rgba(0,0,0,1)',
-                    borderWidth: 2,
-                    data: [78, 59, 80, 81, 56, 99]
-                },
-                {
-                    label: 'SkyFall',
-                    fill: true,
-                    lineTension: 0.5,
-                    backgroundColor: 'rgba(75,192,192,1)',
-                    borderColor: 'rgba(190,2,2,2)',
-                    borderWidth: 2,
-                    data: [8, 29, 10, 181, 36]
-                }
-            ]
+
+            labels: this.state.labels,
+            datasets:
+                [
+                    {
+                        label: this.state.label,
+                        fill: false,
+                        lineTension: 0.9,
+                        backgroundColor: 'rgba(75,192,192,1)',
+                        borderColor: 'rgba(0,0,0,1)',
+                        borderWidth: 2,
+                        data: this.state.data
+                    }
+                ]
         }
 
         return (
@@ -135,9 +122,21 @@ class LineChart extends Component {
                     }}
                 />
             </div>
-        );
+        )
     }
+
+
+
+
+
+
 }
+
+
+
+
+
+
 
 
 let mapStateToProps = (state) => {
@@ -156,4 +155,8 @@ let mapDispatchToProps = (dispatch) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(LineChart)
+
+
+
+
 

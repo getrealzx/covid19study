@@ -125,14 +125,14 @@ class Landing extends Component {
                                     
 
                                     return <tr key={region.Country}>
-                                        <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/flat/24.png"}></img> {region.Country}</td>
+                                        <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/flat/24.png"} className="pl-3 pr-2"></img> {region.Country}</td>
                                         <td>{region.TotalConfirmed}</td>
                                         <td>{region.NewConfirmed}</td>
                                         <td>{region.TotalDeaths}</td>
                                         <td>{region.TotalRecovered}</td>
                                         
                                         <td className="center">
-                                            <button
+                                            <button className="btn btn-light rounded-pill "
                                                 onClick={({ data = region }) => this.props.addCountry(data)}
                                             >Add</button></td>
                                     </tr>

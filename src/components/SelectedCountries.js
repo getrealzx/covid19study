@@ -38,12 +38,12 @@ class SelectedCountries extends Component {
                                 this.props.selected.map(region => {
 
                                     return <tr key={region.Country}>
-                                        <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/shiny/32.png"}></img> {region.Country}</td>
-                                        <td><button 
+                                        <td><img src={"https://www.countryflags.io/"+region.CountryCode+"/flat/32.png"}></img> <strong className="pl-3"> {region.Country} </strong></td>
+                                        <td><button className="btn btn-light rounded-pill"
                                         onClick={({data = region}) => {
                                             this.props.deleteCountry(data)}}
                                         
-                                    >X</button></td>
+                                    >Remove</button></td>
                                     </tr>
 
                                 })

@@ -68,6 +68,18 @@ let dataReducer = (state, action) => {
                 "NewRecovered": 1,
                 "TotalRecovered": 1,
                 "Date": "2020-04-16T14:09:46Z"
+            },
+            {
+                "Country": "Argentina",
+                "CountryCode": "AR",
+                "Slug": "argentina",
+                "NewConfirmed": 166,
+                "TotalConfirmed": 2443,
+                "NewDeaths": 9,
+                "TotalDeaths": 111,
+                "NewRecovered": 37,
+                "TotalRecovered": 596,
+                "Date": "2020-04-16T14:09:46Z"
             }]
 
         }

@@ -11,7 +11,7 @@ class DoughnutChart extends Component {
 
     render() {
 
-        const covid = this.props.selected.map(region => {
+        const doughnut = this.props.selected.map(region => {
 
             const donut = {
                 labels: [
@@ -31,29 +31,38 @@ class DoughnutChart extends Component {
                 }]
             }
 
+            const options = {
+                maintainAspectRatio: false,
+                responsive: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 10
+                    }
+                }
+            }
+
             return (
-                <div className="center p-3">
-                    <h5><b>Country: {region.Country}</b></h5>
+                <div className="chart center p-3">
+                    <h6>Region:<strong> {region.Country}</strong></h6>
 
                     <div className="col">
-                        <Doughnut data={donut} />
+                        <Doughnut data={donut} height={300} options={options} />
                     </div>
-                    <button className="m-3"
-
-                        onClick={({ data = region }) => {
-                            this.props.deleteCountry(data)
-                        }}
-
-                    >Delete Country</button>
+                
+                    <button className="btn m-3 rounded-pill" 
+                    onClick={({ data = region }) =>{this.props.deleteCountry(data)}}>
+                        Remove Country
+                    </button>
                 </div >
             )
         })
 
         return (
 
-            <div className="d-flex justify-content-between" >
+            <div className="d-flex justify-content-center m-4 flex-wrap" >
 
-                {covid}
+                {doughnut}
 
             </div>
 
