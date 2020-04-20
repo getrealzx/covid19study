@@ -10,11 +10,14 @@ class LineChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            historyData0: [],
-            historyData1: [],
-            historyData2: [],
-            historyData3: [],
-            chartData: [],
+            allHistoryData: [
+                // { label: "" , labels: [] , data: [] },
+                // { label: "" , labels: [] , data: [] },
+                // { label: "" , labels: [] , data: [] },
+                // { label: "" , labels: [] , data: [] }
+            ],
+
+
             loading: true,
 
 
@@ -24,11 +27,42 @@ class LineChart extends Component {
     componentDidMount() {
 
 
-        let countryAPI ="";
+        let countryAPI = "";
+        let n = 0;
 
         let countryAPIs = this.props.selected.map(countryObj => {
+            n++;
+            console.log(n)
             countryAPI = "https://api.covid19api.com/total/country/" + countryObj.Slug;
             console.log(countryAPI);
+
+            axios.get(countryAPI)
+                .then(res => {
+                    const historyData = res.data;
+
+                    let labels = [];
+                    let data = [];
+                    let label = historyData[n].Country;
+
+                    historyData.forEach(e => {
+                        labels.push(e.Date.slice(0, 10))
+                        data.push(e.Confirmed)
+                    });
+
+                    let singleHistoryData = { label: label, labels: labels, data: data };
+
+
+
+                    console.log(data)
+
+                    this.setState({
+                        ...this.state,
+                        allHistoryData: this.state.allHistoryData.concat(singleHistoryData),
+                        loading: false
+                    });
+                })
+
+
             return countryAPI
         });
 
@@ -38,35 +72,13 @@ class LineChart extends Component {
 
 
 
+
         // axios.get("china.json")
-        axios.get(countryAPIs[3])
-            .then(res => {
-                const historyData = res.data;
 
-                let labels = [];
-                let data = [];
-                let label=historyData[0].Country;
 
-                historyData.forEach(e => {
-                    labels.push(e.Date.slice(0, 10))
-                    data.push(e.Confirmed)
-                })
 
-                console.log(data)
 
-                this.setState({
-                    label:label,
-                    labels: labels,
-                    data: data,
-                    loading: false
-                }
-                    // ,
-                    // () => {
-                    //     console.log("test state in axios-------------------")
-                    //     console.log(this.state.historyData0[20].Country)
-                    // }
-                );
-            })
+
 
 
 
@@ -85,22 +97,22 @@ class LineChart extends Component {
         }
         else
 
-            console.log("display chartData", this.state.labels);
-        console.log(this.state.data);
+            console.log("display Label", this.state.allHistoryData[0].label);
+        console.log(this.state);
 
         const state = {
 
-            labels: this.state.labels,
+            labels: this.state.allHistoryData[0].label,
             datasets:
                 [
                     {
-                        label: this.state.label,
+                        label: this.state.allHistoryData[0].label,
                         fill: false,
                         lineTension: 0.9,
                         backgroundColor: 'rgba(75,192,192,1)',
                         borderColor: 'rgba(0,0,0,1)',
                         borderWidth: 2,
-                        data: this.state.data
+                        data: this.state.allHistoryData[0].data
                     }
                 ]
         }
