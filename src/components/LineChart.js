@@ -100,21 +100,42 @@ class LineChart extends Component {
             console.log("display Label", this.state.allHistoryData[0].labels);
         console.log(this.state.allHistoryData);
 
+
+
+
+
         const state = {
 
+
             labels: this.state.allHistoryData[0].labels,
-            datasets:
-                [
-                    {
-                        label: this.state.allHistoryData[0].label,
-                        fill: false,
-                        lineTension: 0.9,
-                        backgroundColor: 'rgba(75,192,192,1)',
-                        borderColor: 'rgba(0,0,0,1)',
-                        borderWidth: 2,
-                        data: this.state.allHistoryData[0].data
-                    }
-                ]
+
+            datasets: this.state.allHistoryData.map((countryDataObj) => {
+                return {
+                    label: countryDataObj.label,
+                    fill: false,
+                    lineTension: 0.9,
+                    backgroundColor: 'rgba(75,192,192,1)',
+                    borderColor: 'rgba(0,0,0,1)',
+                    borderWidth: 2,
+                    data: countryDataObj.data
+                }
+              
+            }
+            )
+
+
+            // datasets:
+            //     [
+            //         {
+            //             label: this.state.allHistoryData[0].label,
+            //             fill: false,
+            //             lineTension: 0.9,
+            //             backgroundColor: 'rgba(75,192,192,1)',
+            //             borderColor: 'rgba(0,0,0,1)',
+            //             borderWidth: 2,
+            //             data: this.state.allHistoryData[0].data
+            //         }
+            //     ]
         }
 
         return (
