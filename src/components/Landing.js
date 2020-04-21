@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadData } from '../actions/actions';
+import { loadData, addCountry } from '../actions/actions';
 import axios from "axios";
+import SelectedCountries from './SelectedCountries';
+import MaterialTable from 'material-table';
+import Button from 'material-table';
+import { createLogger } from 'redux-logger';
+
 
 // import Table from 'react-bootstrap/Table';
 
@@ -10,36 +15,26 @@ import axios from "axios";
 
 class Landing extends Component {
 
-    // componentWillMount() {
-    //     this.props.loadData();
-    // };
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            allRegions: {},
+            selected: [],
+            search: null,
+            searchRegions: [],
+            loading: true
+        }
+
+    }
 
 
-    ///https://api.covid19api.com/summary
-
-    // componentWillMount() {
-    //     fetch("summary.json")
-    //         .then(result => result.json())
-    //         .then(data => {
-    //             this.setState({
-    //                 allRegions: data,
-    //                 // loading: false,
-    //                 selected: []
-
-    //             }                   ,
-    //                 () => {
-       
-    //                     return this.props.loadData(this.state)
-    //                 }
+    componentWillMount() {
 
 
+        axios.get("https://api.covid19api.com/summary")
 
-    //             );
-    //         })
-    // }
-
-    componentDidMount() {
-        axios.get("summary.json")
+        // axios.get("summary.json")
             .then(res => {
                 const allRegions = res.data;
                 // console.log("test axio data-------------------");
@@ -49,14 +44,15 @@ class Landing extends Component {
                 this.setState({
                     allRegions: allRegions,
                     // loading: false,
-                    selected: []
+                    selected: [],
+                    loading: false
 
                 }
                     ,
                     () => {
                         console.log("test state in axios-------------------")
                         console.log(this.state);
-                        return this.props.loadData(this.state)
+                        this.props.loadData(this.state)
                     }
 
 
@@ -66,57 +62,185 @@ class Landing extends Component {
     }
 
 
+
+    searchCases = (e) => {
+        let keyword = e.target.value;
+        this.setState({
+            search: keyword
+        })
+    }
+
+
+    // handleCheckboxClick = (rowData) => {
+    //     this.setState({
+    //       selectedItems: {
+    //         ...rowData,
+    //         tableData: {
+    //           checked: true,
+    //         }
+    //       }
+    //     });
+
+    //     this.props.addCountry(rowData)
+
+    //   }
+
+
+
+
+
+
     render() {
 
-        console.log("test in Landing:");
-        // console.log("test state data in landing render-------------------");
-        // console.log(this.state.allRegions.Countries);
-        console.log("==============app props==============");
-        // console.log(this.props.allRegions.Countries[0].TotalConfirmed);
-        console.log(this.props.allRegions.Countries);
+
+
+        if (this.state.loading) {
+            return (<div>Data Loading</div>)
+        }
+        else
+
+            console.log("==============app props==============");
+
+        let gData = this.state.allRegions.Global;
+        console.log(gData.TotalConfirmed);
+
+
+
+        // console.log("gggggggggggggggggg", this.state.allRegions.Countries[100].TotalConfirmed);
+
+
+        // const state = {
+        //     columns: [
+        //         { title: 'Region', field: 'region' },
+        //         { title: 'Total Cases', field: 'totalcases', type: 'numeric' },
+        //         { title: "Today's Cases", field: 'todayscases', type: 'numeric' },
+        //         { title: "Total Deaths", field: 'totaldeaths', type: 'numeric' },
+        //         { title: "Total Recovery", field: 'totalrevovery', type: 'numeric' },
+        //         { title: "Add to Compare (4 Max.)", field: 'add', },
+
+        //     ],
+
+        //     data:
+
+        //         this.state.allRegions.Countries.map((region, index) => {
+        //             return {
+        //                 region: region.Country,
+        //                 totalcases: region.TotalConfirmed,
+        //                 todayscases: region.NewConfirmed,
+        //                 totaldeaths: region.TotalDeaths,
+        //                 totalrevovery: region.TotalRecovered,
+        //                 // add: <Button> d</Button>,
+
+        //             }
+        //         })
+
+        //     // [
+        //     //     {
+        //     //         region: "Any Country",
+        //     //         totalcases: 2421,
+        //     //         todayscases: 5,
+        //     //         totaldeaths: 24,
+        //     //         totalrevovery: 21232
+
+        //     //     },
+        //     // ],
+
+        // }
+
+
+        const countryTable = () => {
+
+            let regionSet = this.state.allRegions.Countries.filter(region => {
+                if (this.state.search == null) return this.state.allRegions.Countries
+                else if (region.Country.toLowerCase().includes(this.state.search.toLowerCase())) return region
+
+            });
+
+
+            return (
+
+
+
+
+                <table className="table table-striped table-bordered table-sm table-dark table-hover" >
+                    <thead className="thead-dark pl-4" >
+                        <th class="th-sm" width="23%">Region/Country</th>
+                        <th class="th-sm">Total Cases</th>
+                        <th class="th-sm">New Cases Today</th>
+                        <th class="th-sm">Total Death</th>
+                        <th class="th-sm">Total Recovery</th>
+                        <th className="center">Add to Compare (4 Max.)</th>
+                    </thead>
+
+
+                    <tbody >
+
+                        <td className="pl-2"><b>Global </b></td>
+                        <td className="pl-2"><b>{gData.TotalConfirmed} </b></td>
+                        <td className="pl-2"><b>{gData.NewConfirmed} </b></td>
+                        <td className="pl-2"><b>{gData.TotalDeaths} </b></td>
+                        <td className="pl-2"><b>{gData.TotalRecovered} </b></td>
+                        <td>
+                            <input type="text" placeholder="Enter search term" className="text-warning form-control form-control-sm p-3" onChange={e => this.searchCases(e)} />
+                        </td>
+
+                        {
+
+                            regionSet.map((region) => {
+                                return <tr key={region.Country} className="pl-2">
+                                    <td className="pl-4"><img src={"https://www.countryflags.io/" + region.CountryCode + "/flat/24.png"} className="pl-3 pr-2"></img> {region.Country}</td>
+                                    <td className="pl-4">{region.TotalConfirmed}</td>
+                                    <td className="pl-4">{region.NewConfirmed}</td>
+                                    <td className="pl-4">{region.TotalDeaths}</td>
+                                    <td className="pl-4">{region.TotalRecovered}</td>
+                                    <td className="center">
+                                        <button className="btn btn-light rounded-pill "
+                                            onClick={({ data = region }) => this.props.addCountry(data)}
+                                        >Add</button></td>
+                                </tr>
+                            })
+
+                        }
+                    </tbody>
+                </table>)
+
+        }
+
+
+
+
 
         return (
             <>
-                <div>Selected Countries</div>
-                <div>All Country Table</div>
-                Landing
-                {/* {this.props.allRegions.Countries} */}
+                <div>
 
-                {/* {this.props.allRegions.Countries[142].TotalConfirmed} */}
-                {/* {this.state.allRegions.Countries[142].TotalConfirmed} */}
+                    <SelectedCountries />
+                    {/* <MaterialTable
+                        title="Global Status"
+                        columns={state.columns}
+                        data={state.data}
+                        rowsPerPage={100}
+                        options={{
+                            selection: true
+                        }}
+                        onSelectionChange={this.handleCheckboxClick}
+                    /> */}
 
-                {/* <table id="scrollTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" striped bordered hover size="sm" variant="dark" >
-                    <thead>
-                        <th class="th-sm">Region/Country</th>
-                        <th class="th-sm">Total Cases</th>
-                        <th class="th-sm">Total Death</th>
-                        <th class="th-sm">Total Recovery</th>
-                    </thead>
 
-                    <tbody>
 
-                        {
-                            this.props.allRegions.Countries.map((region, index) => {
-                                return <tr key={region.Country}>
-                                    <td>{region.Country}</td>
-                                    <td>{region.TotalConfirmed}</td>
-                                    <td>{region.TotalDeaths}</td>
-                                    <td>{region.TotalRecovered}</td>
-                                    <td>
-                                        <button
-                                            onClick={() => {
-                                                this.props.addCountry(
-    
-                                                    region
 
-                                                )
-                                            }}
-                                        >Add to Compare</button></td>
-                                </tr>
-                            })
-                        }
-                    </tbody>
-                </table> */}
+                    <div className="d-flex flex-row-reverse">
+                        <div className="col-3"></div>
+
+
+                    </div>
+                    <div>
+
+
+                        {countryTable()}
+                    </div>
+
+                </div>
             </>
         )
     }
@@ -131,8 +255,8 @@ Landing.propTypes = {
 //get data from redux store
 let mapStateToProps = (state) => {
     return {
-        allRegions: state.allRegions
-        , selected: state.selected
+        allRegions: state.allRegions,
+        selected: state.selected
     }
 };
 
@@ -142,7 +266,8 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
 
     return {
-        loadData: (allState) => dispatch(loadData(allState))
+        loadData: (allState) => dispatch(loadData(allState)),
+        addCountry: (country) => dispatch(addCountry(country))
 
 
     }
@@ -150,7 +275,4 @@ let mapDispatchToProps = (dispatch) => {
 
 
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
-// export default connect(mapStateToProps, { loadData })(Landing);
-// export default Landing

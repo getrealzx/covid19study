@@ -1,4 +1,5 @@
-import { LOAD_DATA } from '../actions/types';
+import { LOAD_DATA, ADD_COUNTRY, DELETE_COUNTRY } from '../actions/types';
+
 
 let dataReducer = (state, action) => {
     //initialize state
@@ -32,19 +33,55 @@ let dataReducer = (state, action) => {
 
             ],
             selected: [
-                {
-                    "Country": "Bangladesh",
-                    "CountryCode": "BD",
-                    "Slug": "bangladesh",
-                    "NewConfirmed": 219,
-                    "TotalConfirmed": 1231,
-                    "NewDeaths": 4,
-                    "TotalDeaths": 50,
-                    "NewRecovered": 7,
-                    "TotalRecovered": 49,
-                    "Date": "2020-04-16T14:09:46Z"
-                }
-            ]
+            {
+                "Country": "United States of America",
+                "CountryCode": "US",
+                "Slug": "united-states",
+                "NewConfirmed": 26877,
+                "TotalConfirmed": 758479,
+                "NewDeaths": 1997,
+                "TotalDeaths": 40644,
+                "NewRecovered": 5497,
+                "TotalRecovered": 70337,
+                "Date": "2020-04-20T09:15:00Z"
+            },
+            {
+                "Country": "Korea (South)",
+                "CountryCode": "KR",
+                "Slug": "korea-south",
+                "NewConfirmed": 8,
+                "TotalConfirmed": 10661,
+                "NewDeaths": 2,
+                "TotalDeaths": 234,
+                "NewRecovered": 105,
+                "TotalRecovered": 8042,
+                "Date": "2020-04-20T09:15:00Z"
+            },
+            {
+                "Country": "Russian Federation",
+                "CountryCode": "RU",
+                "Slug": "russia",
+                "NewConfirmed": 6060,
+                "TotalConfirmed": 42853,
+                "NewDeaths": 48,
+                "TotalDeaths": 361,
+                "NewRecovered": 234,
+                "TotalRecovered": 3291,
+                "Date": "2020-04-20T09:15:00Z"
+            },
+            {
+                "Country": "China",
+                "CountryCode": "CN",
+                "Slug": "china",
+                "NewConfirmed": 18,
+                "TotalConfirmed": 83805,
+                "NewDeaths": 0,
+                "TotalDeaths": 4636,
+                "NewRecovered": 76,
+                "TotalRecovered": 77690,
+                "Date": "2020-04-20T09:15:00Z"
+            }
+        ]
 
         }
     }
@@ -52,29 +89,46 @@ let dataReducer = (state, action) => {
     switch (action.type) {
         case LOAD_DATA:
             console.log("reducer is called");
+            console.log(action.payload.allRegions.Countries[5].TotalConfirmed)
             return {
                 ...state,
                 allRegions: action.payload.allRegions
             }
 
 
-        // case "ADD":
-        //     return{
-        //         ...state,
-        //         selected: state.selected.conact(action.selected)
-        //     }
+        case ADD_COUNTRY:
+            if (state.selected.includes(action.payload)) {
+                // console.log("xxxxxxxxxxxxxxxxxxxxxxExistedxxxxxxxxxxxxxxxxxxx");
+                alert("Entry is already selected");
+                return state;
+
+            }
+
+            else if (state.selected.length >= 8) {
+                alert("You may select up to 8 to study,Too Many Selected!");
+                return state;
+            }
+
+            return {
+                ...state,
+                selected: state.selected.concat(action.payload)
+            }
 
 
-        // case "DELETE":
-        //     let updatedList = state.selected.filter(countryObj => {
-        //         return countryObj.Country !== action.selected.Country
 
-        //     })
+        case DELETE_COUNTRY:
 
-        //     return{
-        //         ...state,
-        //         selected: updatedList
-        //     }
+            let updatedList = state.selected.filter(countryObj => {
+                console.log(countryObj.Country, action.region.Country);
+                return countryObj.Country !== action.region.Country
+
+            })
+            console.log("updatedLIst", updatedList);
+
+            return {
+                ...state,
+                selected: updatedList
+            }
 
         default:
             return state;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { deleteCountry } from "../actions/covidActions"
+import { deleteCountry } from "../actions/actions"
+import './styles.css';
 
 //import {newActionCreatorFunction} from "someactioncreator"
 // import Chart from './Chart'
@@ -23,25 +24,26 @@ class SelectedCountries extends Component {
                 {/* {this.props.selected[0].Country} */}
                 {/* <div><Chart /></div> */}
 
-                <div className="main">
-                    <table>
-                        <thead>
+                <div className="container col-sm-6">
+                    <table className="table m-5 p-3 table-hover myBorder table-striped  ">
+                        <thead className="thead-dark">
                             <tr>
-                                <th> Added Country Name  </th>
-                                <th> Remove </th>
+                                <th className="p-3" ><h5><b> Added Countries</b></h5> </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {
 
-                                this.props.selected.map((region, index) => {
+                                this.props.selected.map(region => {
 
                                     return <tr key={region.Country}>
-                                        <td>{region.Country}</td>
-                                        <td><button 
-                                        onClick={() => {
-                                            this.props.deleteCountry(region)
-                                        }}>X</button></td>
+                                        <td className="p-3"><img src={"https://www.countryflags.io/"+region.CountryCode+"/flat/32.png"}></img> <strong className="pl-3"> {region.Country} </strong></td>
+                                        <td><button className="btn btn-light rounded-pill center"
+                                        onClick={({data = region}) => {
+                                            this.props.deleteCountry(data)}}
+                                        
+                                    >Remove</button></td>
                                     </tr>
 
                                 })
@@ -76,7 +78,7 @@ let mapStateToProps = (state) => {
 
 
     return {
-        selected: state.dataReducer.selected
+        selected: state.selected
     }
 }
 
