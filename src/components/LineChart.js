@@ -117,7 +117,7 @@ class LineChart extends Component {
         }
 
         return (
-            <div className="m-10 p-5 shadow ">
+            <div className="m-5 p-5 myBorder">
                 <Line
                     data={state}
                     options={{

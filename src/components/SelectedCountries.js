@@ -24,8 +24,8 @@ class SelectedCountries extends Component {
                 {/* {this.props.selected[0].Country} */}
                 {/* <div><Chart /></div> */}
 
-                <div className="main">
-                    <table className="table m-5 p-3 shadow rounded table-striped table-hover">
+                <div className="container col-sm-6">
+                    <table className="table m-5 p-3 table-hover myBorder table-striped  ">
                         <thead className="thead-dark">
                             <tr>
                                 <th className="p-3" ><h5><b> Added Countries</b></h5> </th>
